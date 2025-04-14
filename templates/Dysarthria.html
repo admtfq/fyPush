@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dysarthria Detection</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif; /* Fun font */
+            background-image: url('https://cdn.dribbble.com/users/852353/screenshots/5317283/liquid-motion.gif');
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333; /* Dark text for readability */
+            flex-direction: column;
+            margin-top: 60px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: white; /* Darker shade of orange */
+            color: #ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #ff0062;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Content area */
+        .container {
+            margin-top: 80px; /* Space for the fixed navbar */
+            text-align: center;
+            background-color: rgba(255, 255, 255); /* Slight transparency */
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 40px 30px;
+            width: 350px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.1em;
+            color: #D32F2F; /* Deep red color */
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin: 15px 5px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px; /* Rounded button */
+            background-color: #ff0069; /* Vibrant orange */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #14fe5e;
+            color:#16761b;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #word-image {
+            margin-top: 20px;
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: contain;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #feedback.correct {
+            background-color: #A5D6A7;
+            color: #388E3C;
+            border: 2px solid #66BB6A;
+        }
+
+        #feedback.incorrect {
+            background-color: #FFCDD2;
+            color: #D32F2F;
+            border: 2px solid #EF5350;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: block;
+                text-align: center;
+            }
+
+            .navbar ul li {
+                margin: 10px 0;
+            }
+
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+        /* Result Box */
+.result-box {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+/* Success Style */
+.success {
+    background-color: #A5D6A7;
+    color: #388E3C;
+    border: 3px solid #4CAF50;
+}
+
+/* Failure Style */
+.failure {
+    background-color: #FFCDD2;
+    color: #D32F2F;
+    border: 3px solid #F44336;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    background: #ff0069;
+    padding: 15px;
+    border-radius: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+/* Loading Pulse Effect */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+    </style>
+</head>
+<body>
+
+
+    <iframe src="music.html" allow="autoplay" style="display:none;"></iframe>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/mode">Mode</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/index">Training</a></li>
+            <li><a href="/trainingYT">Training with music</a></li>
+            <li><a href="/Dysarthria">Dysarthria Detection</a></li>            
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Dysarthria Detection</h1>
+        <form id="upload-form" method="POST" enctype="multipart/form-data">
+            <label for="audio">Upload Speech Recording:</label>
+            <!-- Choose File Button -->
+            <button type="button" onclick="document.getElementById('audio').click();">Choose File</button>
+            <input type="file" id="audio" name="audio" accept="audio/*" required style="display:none">
+            <button type="submit">Analyze</button>
+        </form>
+
+        <div class="loading" id="loading">Processing...</div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+       const form = document.getElementById('upload-form');
+const resultDiv = document.getElementById('result');
+const loadingDiv = document.getElementById('loading');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+
+    // Show loading animation
+    loadingDiv.style.display = "block";
+    resultDiv.style.display = "none"; // Hide result while processing
+
+    // Play a beep sound effect
+    const beepSound = new Audio('https://www.soundjay.com/button/beep-07.wav');
+    beepSound.play();
+
+    try {
+        const response = await fetch('/dysarthria-detect', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+
+        // Hide loading animation
+        loadingDiv.style.display = "none";
+
+        if (data.result) {
+            resultDiv.style.display = "block";
+            resultDiv.innerHTML = data.result.includes("No Dysarthria") 
+                ? `<span class="success">✅ Great! No Dysarthria Detected! (Confidence: ${data.probability}%)</span>`
+                : `<span class="failure">⚠️ Dysarthria Detected! (Confidence: ${data.probability}%)</span>`;
+            
+            resultDiv.className = "result-box " + (data.result.includes("No Dysarthria") ? "success" : "failure");
+        } else if (data.error) {
+            resultDiv.style.display = "block";
+            resultDiv.innerHTML = `<span class="failure">❌ Error: ${data.error}</span>`;
+            resultDiv.className = "result-box failure";
+        }
+    } catch (error) {
+        console.error(error);
+        loadingDiv.style.display = "none";
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `<span class="failure">⚠️ An unexpected error occurred.</span>`;
+        resultDiv.className = "result-box failure";
+    }
+});
+
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

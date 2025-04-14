@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/ac/c8/de/acc8deb70b96f24690a010dc1cfdb7c2.gif');
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #18006d;
+            margin-bottom: 30px;
+        }
+
+        .mode-container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .mode-card {
+            background-color: #FF5722;
+            color: white;
+            padding: 50px;
+            width: 300px;
+            height: 250px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mode-card:hover {
+            transform: scale(1.1);
+            background-color: #00dd00;
+        }
+
+        .mode-card img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .mode-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Make images larger and central */
+        .mode-card img {
+            max-width: 100%;
+            max-height: 100%;
+            margin-bottom: 15px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #fff;
+            color:#ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #D32F2F;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-left: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+
+    <iframe src="music.html" allow="autoplay" style="display:none;"></iframe>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/"><div class="brand">Latih Lingua</div></a>
+        <ul>
+            <li><a href="/mode">Mode</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/index">Training</a></li>
+            <li><a href="/trainingYT">Training with music</a></li>
+            <li><a href="/Dysarthria">Dysarthria Detection</a></li>
+        </ul>
+    </div>
+
+<h1>Choose Mode</h1>
+
+<!-- Mode Selection Container -->
+<div class="mode-container">
+    <!-- Training Mode -->
+    <div class="mode-card" onclick="window.location.href='/index'">
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnQ2d2xpdndseWwxM3Q3YTNkcjc0NXp0dG1xNzNxZmxzNWU4MnJxZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/g0jlZ04SeV4AM1lvFw/giphy.gif" alt="Training Icon"> <!-- Replace with your image URL -->
+        <p>TRAINING</p>
+    </div>
+
+    <!-- Detection Mode -->
+    <div class="mode-card" onclick="window.location.href='/Dysarthria'">
+        <img src="https://i.giphy.com/vN1M06nbc9tnnrDfqR.webp" alt="Detection Icon"> <!-- Replace with your image URL -->
+        <p>DETECTION</p>
+    </div>
+</div>
+
+</body>
+</html>

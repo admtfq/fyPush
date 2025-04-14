@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Credentials</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Fredoka One', cursive, sans-serif; /* Fun, bubbly font */
+            background-image:url('https://i.pinimg.com/originals/e0/f5/bf/e0f5bfa3e8807483dcd6d0d2f632e501.gif'); 
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #FF5722; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #E64A19; /* Darker orange */
+        }
+
+        /* Error Container */
+        .error-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            text-align: center;
+            margin-top: 80px; /* Space for fixed navbar */
+        }
+
+        .error-icon {
+            width: 120px;
+            height: 120px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .error-message {
+            font-size: 1.8rem;
+            margin-top: 20px;
+            color: #FF5722; /* Orange color for the message */
+        }
+
+        .retry-btn {
+            padding: 15px 30px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .retry-btn:hover {
+            background-color: #E64A19; /* Darker orange on hover */
+            transform: scale(1.05); /* Slight scale-up effect */
+        }
+
+        .retry-btn:active {
+            transform: translateY(2px); /* Button click effect */
+            box-shadow: 0 3px #c53333; /* Darker shadow on click */
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .login-link a {
+            color: #1976D2; /* Complementary blue for links */
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+
+    <iframe src="music.html" allow="autoplay" style="display:none;"></iframe>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+    </div>
+
+    <!-- Error Message Container -->
+    <div class="error-container">
+        <img src="https://i.pinimg.com/originals/2d/28/a6/2d28a62387c7bffe036244233d04341c.gif" alt="Sad face" class="error-icon">
+        <p class="error-message">Wrong Email or Password!</p>
+        <button onclick="window.location.href='/login'" class="retry-btn">Log In Again</button>
+        <p class="login-link">Don't have an account? <a href="/login">Click here</a></p>
+    </div>
+
+</body>
+</html>

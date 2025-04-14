@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latih Lingua - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Fredoka One', cursive, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/e3/9e/94/e39e946cbfa7837b8098d41dad288e54.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+
+        .button-container {
+            margin-bottom: 50px;
+        }
+
+        .button {
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 20px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px #c53333;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .start-button {
+            background-color: #ff4b4b;
+            border: none;
+            color: white;
+        }
+
+        .start-button:hover {
+            background-color: #ff2d2d;
+            transform: scale(1.05);
+        }
+
+        .start-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px #c53333;
+        }
+
+        .auth-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .auth-button {
+            background-color: #00e5ff;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px #009fbf;
+            transition: all 0.3s ease;
+        }
+
+        .auth-button:hover {
+            background-color: #00b8d4;
+            transform: scale(1.05);
+        }
+
+        .auth-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px #009fbf;
+        }
+
+        /* Mute Button */
+        .mute-button {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logo-pic
+        {
+            size: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mute Button -->
+    <button class="mute-button" onclick="toggleMusic()">🔈</button>
+
+    <div>
+        <div class="logo-pic">
+            <img src="static/images/LATIH.gif" alt="Adam Taufiq's Photo" class="default-pic">
+        </div>
+
+        <div class="auth-buttons">
+            <button onclick="window.location.href='/login'" class="button auth-button">Log In</button>
+            <button onclick="window.location.href='/signup'" class="button auth-button">Sign Up</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="{{ url_for('static', filename='images/bgm.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    <script>
+       function toggleMusic() {
+        let audio = document.getElementById("bg-music");
+        if (!audio) {
+            console.error("Audio element not found!");
+            return;
+        }
+
+        if (audio.paused) {
+            audio.play();
+            localStorage.setItem("musicPlaying", "true");
+        } else {
+            audio.pause();
+            localStorage.setItem("musicPlaying", "false");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let audio = document.getElementById("bg-music");
+        if (!audio) return;
+
+        // Check if user previously paused or started music
+        if (localStorage.getItem("musicPlaying") === "true") {
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    console.log("Autoplay blocked, waiting for user interaction.");
+                });
+            }
+        }
+    });
+    </script>
+    
+
+</html>

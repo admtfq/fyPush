@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Background Music</title>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="static/images/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("bg-music");
+
+            // Try to play the audio when the page loads
+            let playPromise = audio.play();
+
+            // If autoplay is blocked, wait for user interaction
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Autoplay started successfully.");
+                }).catch(error => {
+                    console.log("Autoplay blocked. Waiting for user interaction.");
+                    document.addEventListener("click", () => audio.play(), { once: true });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition Test</title>
+    <!-- Google Fonts: Adding playful fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif; /* Fun font */
+            background-image: url('https://cdn.dribbble.com/userupload/25421584/file/original-17056e841323042fe1bdde06a12b0726.gif'); 
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333; /* Dark text for readability */
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+            position: relative; /* Fixes dropdown positioning */
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block; /* Ensures full clickable area */
+        }
+
+        .navbar ul li a:hover {
+            background-color: #ffffff; /* Darker shade of orange */
+            color: #ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #D32F2F;        
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        /* Content area */
+        .container {
+            margin-top: 80px; /* Space for the fixed navbar */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 40px 30px;
+            width: 850px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.1em;
+            color: #D32F2F; /* Deep red color */
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin: 15px 5px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px; /* Rounded button */
+            background-color: #ff0062; /* Vibrant orange */
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #00c597;
+            color: #d3ffe1;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #word-image {
+            margin-top: 20px;
+            max-width: 400px;
+            max-height: 400px;
+            object-fit: contain;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #feedback.correct {
+            background-color: #A5D6A7;
+            color: #388E3C;
+            border: 2px solid #66BB6A;
+        }
+
+        #feedback.incorrect {
+            background-color: #FFCDD2;
+            color: #D32F2F;
+            border: 2px solid #EF5350;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: block;
+                text-align: center;
+            }
+
+            .navbar ul li {
+                margin: 10px 0;
+            }
+
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="music.html" allow="autoplay" style="display:none;"></iframe>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/mode">Mode</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/index">Training</a></li>
+            <li><a href="/trainingYT">Training with music</a></li>
+            <li><a href="/Dysarthria">Dysarthria Detection</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="container">
+        <h1>Speech Recognition Test</h1>
+        <p id="target-word">Say the word: apple</p>
+        <img id="word-image" src="" alt="Word Image" />
+        <button id="change-word">Change Word</button>
+        <button id="start-listening">Start Listening</button>
+        <p id="status">Status: Not Listening</p>
+        <p id="recognized-text">Recognized Text:</p>
+        <div id="feedback"></div>
+    </div>  
+    
+    <script>        
+        const startListeningBtn = document.getElementById('start-listening');
+        const changeWordBtn = document.getElementById('change-word');
+        const status = document.getElementById('status');
+        const recognizedText = document.getElementById('recognized-text');
+        const targetWordElement = document.getElementById('target-word');
+        const feedback = document.getElementById('feedback');
+        const wordImage = document.getElementById('word-image');
+
+        let recognition;        
+        
+        // Word to Image mapping
+        const wordImages = {
+    "apple": "https://i.gifer.com/7kvq.gif", 
+    "banana": "https://i.pinimg.com/originals/57/ca/2d/57ca2defdf7f405615526c83885226a3.gif",
+    "cat": "https://media.tenor.com/bf_mVk_EEYwAAAAM/bbbb.gif",
+    "dog": "https://i.pinimg.com/originals/18/aa/80/18aa80fe165c70283c24d3762af51ca8.gif",
+    "orange": "https://media.tenor.com/xpwKZAhJgD8AAAAM/annoying-orange-orange.gif",
+    "mom": "https://i.pinimg.com/originals/29/1a/1d/291a1d901000682e15dd47da1dbfb93d.gif",
+    "dad": "https://i.pinimg.com/originals/95/f7/ae/95f7aef0dbfaa4e8ae72610ba85d7399.gif",
+    "ball": "https://cdn.dribbble.com/userupload/20614740/file/original-62eb262d2e0df3cc7c71586f22c68b2c.gif",
+    "car": "https://i.pinimg.com/originals/6e/c8/fa/6ec8fa35800b339aa060d70d67edcf03.gif",
+    "hat": "https://cdn.dribbble.com/users/2681722/screenshots/6251170/hat.gif",
+    "sun": "https://www.icegif.com/wp-content/uploads/2023/07/icegif-767.gif",
+    "moon": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0ec8db46030539.5845c3d6cd9fb.gif",
+    "baby": "https://i.pinimg.com/originals/39/d2/62/39d2629f29610b82da4453016473e729.gif",
+    "bird": "https://i.pinimg.com/originals/ed/24/86/ed2486e727811f19426c7d7c2d1b15e3.gif",
+    "duck": "https://i.gifer.com/XOsX.gif",
+    "yes": "https://i.pinimg.com/originals/4d/4c/f2/4d4cf2d0ffbd5af3652801aa6deee911.gif",
+    "no": "https://cdn.dribbble.com/userupload/21150841/file/original-998e4a5271505662522c471d73ce962c.gif",
+    "hi": "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajA2eWExM3NkZnAzeDVhZmQzbWx6a21pbnZ4aTYzbDQ3M21neDN0bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26u4cqVR8dsmedTJ6/giphy.gif",
+    "bye": "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTY3NjZ5cG5mbWRkNG02ZjEwOTkweHhqaGE3ODM1MmlzbnBrOW55cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mP8GermRyOFWV8PQeq/giphy.gif",
+    "go": "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWowd2pncmc3b2hyMnJjOXM2MHJ1MW5xbTU0M3E2c2N1eGt2bmx1diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BmJ1lwCs4JhYdLAnP0/giphy.gif",
+    "up": "https://media.tenor.com/2tFQs67m9XAAAAAM/up-going-up.gif",
+    "down": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl2exjmnWzH94FhdrBDB9s63X_GJv5BVaiUw&s",
+    "red": "https://media.tenor.com/PGhfg5cSGM4AAAAj/red-circle.gif",
+    "blue": "https://media.tenor.com/mf4otJF1pygAAAAM/blue-hearts-love.gif",
+    "green": "https://giphy.com/gifs/love-endless-life-1rSOdtLQwoxz2f6hbf",
+    "milk": "https://i.pinimg.com/originals/64/31/98/643198891e8efa01b12c550f2740b496.gif",
+    "book": "https://cdn.dribbble.com/userupload/19646652/file/original-b84277d6110f0722a534324ac2c977a8.gif",
+    "chair": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9e068273824065.5c16ca124c8ca.gif",
+    "shoe": "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGl6bjVrcmd3bXhxNmpqYjBvNGl1dXd5OW1pYW84NW9yZDUwZTdmMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JrGPjF4k9pTvGViwAe/giphy.gif",
+    "fish": "https://cdn.dribbble.com/userupload/22729617/file/original-7867acc0cdd394a0ba5ff8508311df12.gif",
+    "hug": "https://cdn.dribbble.com/userupload/23641033/file/original-8ffdeca533e1ab23611e453890326096.gif",
+    "jump": "https://mir-s3-cdn-cf.behance.net/project_modules/hd/154f2c39926149.57722dcab3a01.gif",
+    "sit": "https://i.pinimg.com/originals/df/7e/2b/df7e2b133d740f5fa39ca03960008043.gif",
+    "run": "https://cdn.dribbble.com/users/291221/screenshots/1618460/hipster_runner.gif",
+    "eat": "https://i.pinimg.com/originals/5f/d4/d2/5fd4d278c935c5c1791bc30253c5aa7a.gif"
+};
+
+
+        // Fetch a random word from the server
+        function fetchRandomWord() {
+            fetch('/get-word')
+                .then(response => response.json())
+                .then(data => {
+                    const word = data.word;
+                    targetWordElement.innerText = "Say the word: " + word;
+                    wordImage.src = wordImages[word] || '';  // Set the related image
+                    wordImage.style.display = word ? 'block' : 'none';  // Hide image if word is empty
+                })
+                .catch(error => {
+                    console.error("Error fetching random word:", error);
+                    targetWordElement.innerText = "Say the word: error";
+                });
+        }
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                status.innerText = "Status: Listening...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                recognizedText.innerText = "Recognized Text: " + transcript;
+
+                const targetWord = targetWordElement.innerText.split(': ')[1].toLowerCase();
+                feedback.style.display = "block";
+                if (targetWord === transcript) {
+                    feedback.innerText = "Correct!";
+                    feedback.className = "correct";
+                } else {
+                    feedback.innerText = "Try Again!";
+                    feedback.className = "incorrect";
+                }
+                status.innerText = "Status: Not Listening";
+            };
+
+            recognition.onerror = () => {
+                status.innerText = "Status: Error";
+            };
+
+            recognition.onend = () => {
+                status.innerText = "Status: Not Listening";
+            };
+        } else {
+            alert("Your browser does not support speech recognition.");
+        }
+
+        // Start Listening Button
+        startListeningBtn.addEventListener('click', () => {
+            if (recognition) {
+                recognition.start();
+            }
+        });
+
+        // Change Word Button
+        changeWordBtn.addEventListener('click', () => {
+            feedback.style.display = "none"; // Hide feedback when changing word
+            fetchRandomWord();
+        });
+
+        // Initial fetch of the target word
+        fetchRandomWord();
+
+        
+    </script>
+
+</body>
+</html>

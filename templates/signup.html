@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Body Styling */
+        body {
+            margin: 0;
+            font-family: 'Fredoka One', cursive, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/e3/9e/94/e39e946cbfa7837b8098d41dad288e54.gif');
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #fff;
+            color:#ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #D32F2F;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Form Container */
+        .signup-container {
+            margin-top: 100px; /* Space for the fixed navbar */
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .signup-container h2 {
+            text-align: left;
+            margin-bottom: 20px;
+            color: #ff0062;
+            font-size: 2.5rem;
+        }
+
+        .signup-container label {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .signup-container input {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .signup-container button {
+            padding: 15px;
+            background-color: #ff0062;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-container button:hover {
+            background-color: #006aff;
+            color: #ffd2e3;
+            transform: scale(1.2);
+        }
+
+        .signup-container button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px #c53333;
+        }
+
+        .signup-container .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .signup-container .login-link a {
+            color: #1976D2;
+            text-decoration: none;
+        }
+
+        .signup-container .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: block;
+                text-align: center;
+            }
+
+            .navbar ul li {
+                margin: 10px 0;
+            }
+
+            .signup-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="music.html" allow="autoplay" style="display:none;"></iframe>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>           
+        </ul>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="signup-container">
+        <form action="{{ url_for('validate_signup') }}" method="POST">
+            <h2>Sign Up</h2>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            
+            <label for="age">Age</label>
+            <input type="text" id="age" name="age" placeholder="Enter your age" required>
+        
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <button type="submit">Submit</button>
+            <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+        </form>        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

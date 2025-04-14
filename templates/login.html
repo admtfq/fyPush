@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Body Styling */
+        body {
+            margin: 0;
+            font-family: 'Fredoka One', cursive, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/e3/9e/94/e39e946cbfa7837b8098d41dad288e54.gif');
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #fff;
+            color:#ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #D32F2F;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Form Container */
+        .login-container {
+            margin-top: 100px; /* Space for the fixed navbar */
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .login-container h2 {
+            text-align: left;
+            margin-bottom: 20px;
+            color: #ff0062;
+            font-size: 2.5rem;
+        }
+
+        .login-container label {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .login-container input {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .login-container button {
+            padding: 15px;
+            background-color: #ff0062;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container button:hover {
+            background-color: #0087c6;
+            color: aquamarine;
+            transform: scale(1.05);
+        }
+
+        .login-container button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px #a60040;
+        }
+
+        .login-container .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .login-container .signup-link a {
+            color: #1976D2;
+            text-decoration: none;
+        }
+
+        .login-container .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: block;
+                text-align: center;
+            }
+
+            .navbar ul li {
+                margin: 10px 0;
+            }
+
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+         /* Mute Button */
+         .mute-button {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+   
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>            
+        </ul>
+    </div>
+
+
+    <button class="mute-button" onclick="toggleMusic()">🔈</button>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <form action="{{ url_for('login') }}" method="POST">
+            <h2>Log In</h2>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <button type="submit">Log In</button>
+            <p class="signup-link">Don't have an account? <a href="/signup">Sign up here</a></p>
+        </form>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="{{ url_for('static', filename='images/bgm.mp3') }}" type="audio/mpeg">
+    </audio>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}">
+        function toggleMusic() {
+        let audio = document.getElementById("bg-music");
+        if (!audio) {
+            console.error("Audio element not found!");
+            return;
+        }
+
+        if (audio.paused) {
+            audio.play();
+            localStorage.setItem("musicPlaying", "true");
+        } else {
+            audio.pause();
+            localStorage.setItem("musicPlaying", "false");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let audio = document.getElementById("bg-music");
+        if (!audio) return;
+
+        // Check if user previously paused or started music
+        if (localStorage.getItem("musicPlaying") === "true") {
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    console.log("Autoplay blocked, waiting for user interaction.");
+                });
+            }
+        }
+    });
+    </script>
+</body>
+</html>

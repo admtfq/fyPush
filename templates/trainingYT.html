@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Videos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+      /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif; /* Fun font */
+            background-image: url('https://i.pinimg.com/originals/1f/28/9b/1f289b670cc326150d1d4c0b28870318.gif'); 
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            display: flex;
+            flex-direction: column; /* Allows footer to stay at bottom */
+            min-height: 100vh; /* Ensures full-page height */
+            color: #333; /* Dark text for readability */
+        }
+
+        h2 {
+            font-size: 3rem; /* Larger title for emphasis */
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 7px 7px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px; /* Increased space from the buttons */
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #ff0062;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+            position: relative; /* Fixes dropdown positioning */
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block; /* Ensures full clickable area */
+        }
+
+        .navbar ul li a:hover {
+            background-color: #ffffff; /* Lighter background */
+            color: #ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #D32F2F;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Content Fix to Prevent Navbar Overlap */
+        .container {
+            margin-top: 100px; /* Push content below navbar */
+            padding: 20px;
+            flex: 1; /* Pushes footer down */
+        }
+
+        /* Video Sections */
+        .video-section {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .video-container a {
+            text-decoration: none;
+            color: black;
+            width: calc(33.33% - 20px); /* Three columns per row */
+            max-width: 300px; /* Prevents too wide thumbnails */
+        }
+
+        .video-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container img:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+
+        /* Responsive Video Grid */
+        @media (max-width: 900px) {
+            .video-container a {
+                width: calc(50% - 20px); /* Two columns per row */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .video-container a {
+                width: 100%; /* Single column layout */
+            }
+        }
+
+        .favorite-container {
+            position: relative;
+            width: calc(33.33% - 20px); /* Same width as other videos */
+            max-width: 300px;
+            display: inline-block;
+        }
+
+        .favorite-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: gold;
+            color: black;
+            font-size: 25px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .favorite-video {
+            width: 100%; /* Matches other thumbnails */
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .favorite-video:hover {
+            transform: scale(1.05);
+        }
+
+
+
+        /* Footer Fix */
+        footer {
+            background-color: #ff0062;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/mode">Mode</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/index">Training</a></li>
+            <li><a href="/trainingYT">Training with music</a></li>
+            <li><a href="/Dysarthria">Dysarthria Detection</a></li>            
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="video-section" id="latihan">
+            <h2>Latihan dalam Bahasa Melayu</h2>
+            <div class="video-container">
+                <a href="https://www.youtube.com/watch?v=vFubDIS1BRw" target="_blank">
+                    <img src="https://img.youtube.com/vi/vFubDIS1BRw/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=--SIwZ3Qv6c" target="_blank">
+                    <img src="https://img.youtube.com/vi/--SIwZ3Qv6c/0.jpg" alt="Video Thumbnail">
+                </a>              
+                <a href="https://www.youtube.com/watch?v=Nrpens4wqUw" target="_blank" class="favorite-container">
+                    <div class="favorite-badge">Paling Popular</div>
+                    <img class="favorite-video" src="https://img.youtube.com/vi/Nrpens4wqUw/0.jpg" alt="Most Favorite Video">
+                </a>
+                <a href="https://www.youtube.com/watch?v=Gu3DrQ3rPeM" target="_blank">
+                    <img src="https://img.youtube.com/vi/Gu3DrQ3rPeM/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=IYj46BSjKk4" target="_blank">
+                    <img src="https://img.youtube.com/vi/IYj46BSjKk4/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=bm-vxGLSdp4" target="_blank">
+                    <img src="https://img.youtube.com/vi/bm-vxGLSdp4/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=CcOOddMyy18" target="_blank">
+                    <img src="https://img.youtube.com/vi/CcOOddMyy18/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=fU9rv5nA1w8" target="_blank">
+                    <img src="https://img.youtube.com/vi/fU9rv5nA1w8/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=li1dRvsDLzY" target="_blank">
+                    <img src="https://img.youtube.com/vi/li1dRvsDLzY/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=QZoE-vHKrn0" target="_blank">
+                    <img src="https://img.youtube.com/vi/QZoE-vHKrn0/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=Mx3NO2vbGhw" target="_blank">
+                    <img src="https://img.youtube.com/vi/Mx3NO2vbGhw/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=TnaksWLOwGo" target="_blank">
+                    <img src="https://img.youtube.com/vi/TnaksWLOwGo/0.jpg" alt="Video Thumbnail">
+                </a>                                                
+            </div>
+        </div>
+
+        <div class="video-section" id="english">
+            <h2>Practice in English</h2>
+            <div class="video-container">
+                <a href="https://www.youtube.com/watch?v=rhzVzX9OlrY" target="_blank">
+                    <img src="https://img.youtube.com/vi/rhzVzX9OlrY/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=9IKbMMb6IxM" target="_blank">
+                    <img src="https://img.youtube.com/vi/9IKbMMb6IxM/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=YLXs1Fkgakk" target="_blank">
+                    <img src="https://img.youtube.com/vi/YLXs1Fkgakk/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=fQgonFpxKrc" target="_blank">
+                    <img src="https://img.youtube.com/vi/fQgonFpxKrc/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=ChqnN3cKzXQ" target="_blank">
+                    <img src="https://img.youtube.com/vi/ChqnN3cKzXQ/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=Wn9i7-V8iEE" target="_blank">
+                    <img src="https://img.youtube.com/vi/Wn9i7-V8iEE/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=nKYCy4ZNBpU" target="_blank">
+                    <img src="https://img.youtube.com/vi/nKYCy4ZNBpU/0.jpg" alt="Video Thumbnail">
+                </a>
+                        
+                <a href="https://www.youtube.com/watch?v=CU6x9olTzuo" target="_blank" class="favorite-container">
+                    <div class="favorite-badge">Most Popular</div>
+                    <img class="favorite-video" src="https://img.youtube.com/vi/CU6x9olTzuo/0.jpg" alt="Most Favorite Video">
+                </a>
+        
+                <a href="https://www.youtube.com/watch?v=C2ERyOPDUPE" target="_blank">
+                    <img src="https://img.youtube.com/vi/C2ERyOPDUPE/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=a-kGCkPrqgQ" target="_blank">
+                    <img src="https://img.youtube.com/vi/a-kGCkPrqgQ/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=n1It6M8_GO0" target="_blank">
+                    <img src="https://img.youtube.com/vi/n1It6M8_GO0/0.jpg" alt="Video Thumbnail">
+                </a>
+                <a href="https://www.youtube.com/watch?v=59vOOI0kiQ8" target="_blank">
+                    <img src="https://img.youtube.com/vi/59vOOI0kiQ8/0.jpg" alt="Video Thumbnail">
+                </a>
+            </div>
+        </div>            
+        </div>
+</body>
+</html>

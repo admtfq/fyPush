@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Latih Lingua</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka One', cursive, sans-serif;
+            background-image: url('https://64.media.tumblr.com/bdbfa98539dbc85102d9a44e78abfc07/tumblr_o8z460cWNK1sbitwxo1_500.gifv');
+            background-size: cover; /* Ensure the GIF covers the whole screen */
+            background-position: center; /* Center the GIF */
+            background-repeat: no-repeat; /* Prevent repeating the GIF */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: gold;
+        }
+
+        .developer-info {
+            background: none;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .developer-info p {
+            font-size: 1.2rem;
+            color: gold;
+        }
+
+        .fun-fact-box {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        .fun-fact-btn {
+            background-color: #ff0062;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .fun-fact-btn:hover {
+            background-color: #00a2ff;
+            transform: scale(1.1);
+        }
+
+        .profile-pic {
+            width: 250px;
+            height: 250px;
+            margin-left: 55px;
+            border-radius: 50%;
+            background-image: url('static/images/damdam.jpg');    
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.4s ease-in-out;
+        }
+
+        .profile-pic:hover {
+            background-image: url('static/images/sunggi.jpeg');
+        }
+
+
+        .profile-pic img {
+            width: 350px; /* Adjust size */
+            height: 350px;
+            border-radius: 50%; /* Makes it circular */
+            border: 3px solid #ff0062; /* Optional border */
+            object-fit: cover; /* Ensures the image fits well */
+        }
+
+         /* Navbar Styling */
+         .navbar {
+            width: 100%;
+            background-color: #ff0062; /* Vibrant orange background */
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: white; /* Darker shade of orange */
+            color: #ff0062;
+        }
+
+        .navbar ul li a.active {
+            background-color: #ff0062;
+        }
+
+        .navbar .brand {
+            font-size: 1.8em;
+            margin-left: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Latih Lingua</div>
+        <ul>
+            <li><a href="/mode">Mode</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/index">Training</a></li>
+            <li><a href="/trainingYT">Training with music</a></li>
+            <li><a href="/Dysarthria">Dysarthria Detection</a></li>            
+        </ul>
+    </div>
+
+    <h1>Welcome to Latih Lingua!</h1>
+    <p>We make speech therapy fun and interactive with rhythm-based exercises!</p>
+
+    <div class="developer-info">
+        <div class="profile-pic">
+            
+        </div>
+        
+        <h2>Meet the Developer</h2>
+        <p><strong>Name:</strong> Adam Taufiq Shahrul Affendi</p>
+        <p><strong>Location:</strong> Shah Alam, Selangor</p>
+        <p><strong>Email:</strong> adamtaufiq@gmail.com</p>
+        <p><strong>Phone:</strong> 019-7224929</p>
+    </div>
+
+    <button class="fun-fact-btn" onclick="showFunFact()">Click for a Fun Fact!</button>
+    <div class="fun-fact-box" id="fun-fact">Dysarthria therapy can be enhanced by music and rhythm, helping kids speak more fluently!</div>
+
+    <script>
+        let funFacts = [
+    "Dysarthria therapy can be enhanced by music and rhythm, helping kids speak more fluently!",
+    "Children process music and language in similar parts of the brain!",
+    "Speaking in rhythm helps children with speech disorders form words more easily.",
+    "Clapping along with words can help improve pronunciation!",
+    "The left hemisphere of the brain plays a major role in speech and language processing.",
+    "Singing can be easier than speaking for children with speech disorders!",
+    "Using hand gestures while speaking can improve speech clarity.",
+    "Music therapy can improve both speech and memory in children.",
+    "The brain processes rhythm faster than spoken words!",
+    "Tongue twisters can help strengthen speech muscles!",
+    "Playing musical instruments can improve speech and coordination skills.",
+    "Visual cues like lip reading help children recognize speech sounds.",
+    "Repeating words in a fun, rhythmic way helps with learning new sounds.",
+    "Did you know? Even babies respond to rhythmic speech before they can talk!",
+    "Laughing and smiling while speaking helps with speech fluidity!",
+    "Animal sounds are some of the first speech exercises for kids.",
+    "Chanting short phrases helps build speech confidence.",
+    "Children who practice rhymes develop stronger speech patterns.",
+    "The 'r' and 's' sounds are some of the trickiest for young children to learn!",
+    "Speaking slowly and with exaggerated motion helps pronunciation!",
+    "Storytelling and role-playing encourage better speech practice.",
+    "Speech therapy can be as fun as singing your favorite song!",
+    "Playing with puppets can help kids practice speech in a relaxed way.",
+    "Simple breathing exercises can improve speech control!",
+    "A good night’s sleep helps the brain process speech learning!",
+    "Using a mirror while speaking can help kids correct pronunciation.",
+    "Speech practice is more fun when turned into a game!",
+    "Even adults can improve speech with rhythm-based exercises!",
+    "Watching animated characters talk can reinforce speech patterns.",
+    "Singing lullabies to babies helps them learn language faster!"
+];
+
+        let factIndex = 0;
+
+        function showFunFact() {
+            factIndex = (factIndex + 1) % funFacts.length;
+            document.getElementById("fun-fact").innerText = funFacts[factIndex];
+        }
+    </script>
+</body>
+</html>
